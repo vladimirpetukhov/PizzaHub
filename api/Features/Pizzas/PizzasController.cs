@@ -1,0 +1,50 @@
+﻿using api.Features.Pizzas.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace api.Features.Pizzas
+{
+    
+    public class PizzasController : ApiController
+    {
+        private readonly IPizzasService pizzas;
+
+        public PizzasController(IPizzasService pizzas)
+            => this.pizzas = pizzas;
+
+        [HttpGet]
+        /// <summary>
+        /// Searches for pizza types based on the provided search criteria.
+        /// </summary>
+        /// <param name="request">The search criteria.</param>
+        /// <returns>A collection of matching pizza types.</returns>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PizzasTypeSearchResponseModel))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<PizzasTypeSearchResponseModel>> Search(
+            [FromQuery] PizzasTypeSearchRequestModel request)
+            => await this.pizzas.SearchAsync(request);
+
+        [HttpPost]
+        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<int>> Create(
+            PizzasTypeRequestModel request)
+            => await this.pizzas.CreateAsync(request);
+
+        [HttpPut(Id)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> Update(
+            int id, PizzasTypeRequestModel request)
+            => await this.pizzas.UpdateAsync(id, request);
+
+        [HttpDelete(Id)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> Delete(
+            int id)
+            => await this.pizzas.DeleteAsync(id);
+    }
+}
