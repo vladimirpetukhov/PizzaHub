@@ -11,18 +11,6 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let pizza of pizzas; let i = index">
-        <td>{{ pizza.id }}</td>
-        <td><input type="text" [(ngModel)]="pizza.name" [disabled]="i !== editedIndex"></td>
-        <td><input type="number" [(ngModel)]="pizza.price" [disabled]="i !== editedIndex"></td>
-        <td><input type="text" [(ngModel)]="pizza.description" [disabled]="i !== editedIndex"></td>
-        <td>
-          <button class="btn btn-primary btn-sm m-2" *ngIf="i !== editedIndex" (click)="editPizza(i)"><i class="bi bi-pencil-square"></i></button>
-          <button class="btn btn-success btn-sm m-2" *ngIf="i === editedIndex" (click)="saveEdit(i,pizza)" ><i class="bi bi-check"></i></button>
-          <button class="btn btn-danger btn-sm" *ngIf="i !== editedIndex" ><i class="bi bi-trash" (click)="delete(i)"></i></button>
-          <button class="btn btn-warning btn-sm ms-2" *ngIf="i === editedIndex && !isEditing" (click)="cancelEdit()" ><i class="bi bi-x"></i></button>
-        </td>
-      </tr>
       <tr *ngIf="isNewRowVisible">
         <td></td>
         <td><input type="text" [(ngModel)]="newPizza.name"></td>
@@ -31,6 +19,18 @@
         <td>
           <button class="btn btn-success btn-sm me-2" (click)="saveNewPizza()"><i class="bi bi-check"></i></button>
           <button class="btn btn-danger btn-sm" (click)="cancelNewPizza()"><i class="bi bi-x"></i></button>
+        </td>
+      </tr>
+      <tr *ngFor="let pizza of pizzas; let i = index">
+        <td>{{ pizza.id }}</td>
+        <td><input type="text" [(ngModel)]="pizza.name" [disabled]="i !== editedIndex"></td>
+        <td><input type="number" [(ngModel)]="pizza.price" [disabled]="i !== editedIndex"></td>
+        <td><input type="text" [(ngModel)]="pizza.description" [disabled]="i !== editedIndex"></td>
+        <td>
+          <button class="btn btn-primary btn-sm m-2" *ngIf="i !== editedIndex" (click)="editPizza(i)"><i class="bi bi-pencil-square"></i></button>
+          <button class="btn btn-success btn-sm m-2" *ngIf="i === editedIndex" (click)="saveEdit(i,pizza)" ><i class="bi bi-check"></i></button>
+          <button class="btn btn-danger btn-sm" *ngIf="i !== editedIndex" (click)="delete(pizza.id)"><i class="bi bi-trash" ></i></button>
+          <button class="btn btn-warning btn-sm ms-2" *ngIf="i === editedIndex && !isEditing" (click)="cancelEdit()" ><i class="bi bi-x"></i></button>
         </td>
       </tr>
     </tbody>
