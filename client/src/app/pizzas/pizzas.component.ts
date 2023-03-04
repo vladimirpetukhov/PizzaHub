@@ -59,12 +59,16 @@ export class PizzasComponent implements OnInit {
   }
 
   saveEdit(index: number, pizza: Pizza) {
-    this.pizzas[index] = pizza;
+    this.pizzaService.update(pizza.id, pizza).subscribe((res) => {
+      this.loadPizzas();
+    }, error => {
+      console.log(error);
+    });
     this.editedIndex = -1;
   }
 
   saveNewPizza() {
-    this.pizzaService.create(this.newPizza).subscribe(() => {
+    this.pizzaService.create(this.newPizza).subscribe((res) => {
       this.loadPizzas();
     }, error => {
       console.log(error);

@@ -27,4 +27,8 @@ export class PizzasService {
     return this.http.post('pizzas', pizza);
   }
 
+  update(id: number, pizza: PizzaForRequest) {
+    return this.http.put(`pizzas/${id}`, pizza);
+  }
+
 }
