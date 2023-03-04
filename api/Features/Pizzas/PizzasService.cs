@@ -72,7 +72,7 @@ namespace api.Features.Pizzas
             PizzasTypeSearchRequestModel request)
         {
             var specification = this.GetPizzaSpecification(request);
-
+            request.Page = request.Page <= 0 ? 1 : request.Page;
             var pizzas = await this.Mapper
                 .ProjectTo<PizzasTypeListingResponseModel>(this
                     .AllAsNoTracking()
