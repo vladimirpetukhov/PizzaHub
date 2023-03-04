@@ -31,4 +31,8 @@ export class PizzasService {
     return this.http.put(`pizzas/${id}`, pizza);
   }
 
+  delete(id: number) {
+    return this.http.delete(`pizzas/${id}`);
+  }
+
 }

@@ -103,4 +103,17 @@ export class PizzasComponent implements OnInit {
     }
   }
 
+  delete(id: number) {
+    const index = this.pizzas.findIndex(p => p.id === id);
+    if (index === -1) {
+      console.log('Pizza not found');
+      return;
+    }
+    this.pizzaService.delete(id).subscribe((res) => {
+      this.loadPizzas();
+    }, error => {
+      console.log(error);
+    });
+  }
+
 }
