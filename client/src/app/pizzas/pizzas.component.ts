@@ -37,14 +37,14 @@ export class PizzasComponent implements OnInit {
   }
 
   loadPizzas() {
-    this.pizzaService.getPizzas(this.page).subscribe(response => {
+    this.pizzaService.all(this.page).subscribe(response => {
       this.pizzas = response.pizzas;
       this.totalPages = response.totalPages;
       this.page = response.page;
     });
   }
 
-  addNewPizza(){
+  addNewPizza() {
     this.isNewRowVisible = true;
   }
 
@@ -64,11 +64,13 @@ export class PizzasComponent implements OnInit {
   }
 
   saveNewPizza() {
-    // Assign a unique ID to the new pizza
-    this.newPizza.id = this.pizzas.length + 1;
-    this.pizzas.push(this.newPizza);
-    this.isNewRowVisible = false;
+    this.pizzaService.create(this.newPizza).subscribe(() => {
+      this.loadPizzas();
+    }, error => {
+      console.log(error);
+    });
     this.newPizza = { id: 0, name: '', price: 0, description: '' };
+    this.isNewRowVisible = false;
   }
 
   cancelNewPizza() {

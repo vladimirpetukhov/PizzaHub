@@ -1,24 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Pizza, PizzasResponse } from './pizza';
+import { Pizza, PizzasResponse, PizzaForRequest } from './pizza';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class PizzasService {
 
-constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-getPizzas(pageNumber?: number, query?: string): Observable<PizzasResponse> {
-  let params = new HttpParams();
+  all(pageNumber?: number, query?: string): Observable<PizzasResponse> {
+    let params = new HttpParams();
 
-  if (pageNumber) {
-    params.set('page', pageNumber.toString());
-  }
+    if (pageNumber) {
+      params = params.set('page', pageNumber.toString());
+    }
 
-  if (query) {
-    params.set('quey', query);
-  }
+    if (query) {
+      params = params.set('quey', query);
+    }
+    console.log(params)
+    console.log(pageNumber);
     return this.http.get<PizzasResponse>('pizzas', { params });
+  }
+
+  create(pizza: PizzaForRequest) {
+    return this.http.post('pizzas', pizza);
   }
 
 }

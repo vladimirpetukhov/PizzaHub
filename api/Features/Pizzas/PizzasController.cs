@@ -30,7 +30,11 @@ namespace api.Features.Pizzas
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<int>> Create(
             PizzasTypeRequestModel request)
-            => await this.pizzas.CreateAsync(request);
+        {
+            var result = await this.pizzas.CreateAsync(request);
+
+            return result;
+        }
 
         [HttpPut(Id)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
