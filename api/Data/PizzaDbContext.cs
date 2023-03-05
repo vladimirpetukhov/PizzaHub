@@ -3,6 +3,7 @@ using api.Data.Models;
 using api.Data.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Reflection.Emit;
 
 namespace api.Data
 {
@@ -52,6 +53,10 @@ namespace api.Data
 
             builder.Entity<OrderPizza>()
             .HasKey(op => new { op.OrderId, op.PizzaId });
+
+            builder.Entity<Customer>()
+            .HasIndex(c => c.Phone)
+            .IsUnique();
         }
 
         private void ApplyAuditInformation()

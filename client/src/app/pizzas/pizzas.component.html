@@ -13,9 +13,9 @@
     <tbody>
       <tr *ngIf="isNewRowVisible">
         <td></td>
-        <td><input type="text" [(ngModel)]="newPizza.name"></td>
-        <td><input type="number" [(ngModel)]="newPizza.price"></td>
-        <td><input type="text" [(ngModel)]="newPizza.description"></td>
+        <td><input type="text" class="form-control" [(ngModel)]="newPizza.name"></td>
+        <td><input type="number"class="form-control" [(ngModel)]="newPizza.price"></td>
+        <td><input type="text" class="form-control" [(ngModel)]="newPizza.description"></td>
         <td>
           <button class="btn btn-success btn-sm me-2" (click)="saveNewPizza()"><i class="bi bi-check"></i></button>
           <button class="btn btn-danger btn-sm" (click)="cancelNewPizza()"><i class="bi bi-x"></i></button>
@@ -23,9 +23,9 @@
       </tr>
       <tr *ngFor="let pizza of pizzas; let i = index">
         <td>{{ pizza.id }}</td>
-        <td><input type="text" [(ngModel)]="pizza.name" [disabled]="i !== editedIndex"></td>
-        <td><input type="number" [(ngModel)]="pizza.price" [disabled]="i !== editedIndex"></td>
-        <td><input type="text" [(ngModel)]="pizza.description" [disabled]="i !== editedIndex"></td>
+        <td><input class="form-control" type="text" [(ngModel)]="pizza.name" [disabled]="i !== editedIndex"></td>
+        <td><input class="form-control" type="number" [(ngModel)]="pizza.price" [disabled]="i !== editedIndex"></td>
+        <td><input class="form-control" type="text" [(ngModel)]="pizza.description" [disabled]="i !== editedIndex"></td>
         <td>
           <button class="btn btn-primary btn-sm m-2" *ngIf="i !== editedIndex" (click)="editPizza(i)"><i class="bi bi-pencil-square"></i></button>
           <button class="btn btn-success btn-sm m-2" *ngIf="i === editedIndex" (click)="saveEdit(i,pizza)" ><i class="bi bi-check"></i></button>
