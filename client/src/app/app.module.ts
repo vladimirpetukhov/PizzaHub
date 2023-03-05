@@ -1,3 +1,4 @@
+import { OrdersModule } from './orders/orders.module'
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -15,6 +16,7 @@ const MODULES = [
   SharedModule,
   CoreModule,
   PizzasModule,
+  OrdersModule,
   BrowserModule,
   AppRoutingModule,
   FormsModule

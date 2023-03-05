@@ -18,7 +18,7 @@ export type PizzaForRequest = {
   description: string;
 };
 
-export type PizzaType = {
+export type PizzaTypeSelect = {
   id: number;
   name: string;
 };

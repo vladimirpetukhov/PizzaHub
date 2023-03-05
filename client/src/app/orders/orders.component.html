@@ -1,0 +1,7 @@
+<p>
+  orders works!
+</p>
+<select>
+  <option *ngFor="let pizzaType of pizzaTypes$ | async" [value]="pizzaType.id">{{ pizzaType.name }}</option>
+</select>
+{{ pizzaTypes$ | async | json }}
