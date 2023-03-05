@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Pizza, PizzasResponse, PizzaForRequest } from './pizza';
-import { Observable } from 'rxjs';
+import { Pizza, PizzasResponse, PizzaForRequest, PizzaType } from './pizza';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class PizzasService {
+
+  private pizzaTypes: PizzaType[] = [];
+  private pizzaTypes$ = new BehaviorSubject<PizzaType[]>(this.pizzaTypes);
 
   constructor(private http: HttpClient) { }
 

@@ -15,6 +15,18 @@ namespace api.Features.Pizzas
 
         [HttpGet]
         /// <summary>
+        /// Return all pizzass type.
+        /// </summary>
+        /// <param name="request">All.</param>
+        /// <returns>A collection of all pizzas with Id and Name</returns>
+        [Route("all")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PizzasForSelectResponseModel))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<PizzasForSelectResponseModel>> All()
+            => await this.pizzas.Select();
+
+        [HttpGet]
+        /// <summary>
         /// Searches for pizza types based on the provided search criteria.
         /// </summary>
         /// <param name="request">The search criteria.</param>

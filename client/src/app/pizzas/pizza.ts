@@ -18,3 +18,8 @@ export type PizzaForRequest = {
   description: string;
 };
 
+export type PizzaType = {
+  id: number;
+  name: string;
+};
+
