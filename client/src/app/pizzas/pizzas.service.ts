@@ -16,7 +16,7 @@ export class PizzasService {
     }
 
     if (query) {
-      params = params.set('quey', query);
+      params = params.set('query', query);
     }
 
     return this.http.get<PizzasResponse>('pizzas', { params });

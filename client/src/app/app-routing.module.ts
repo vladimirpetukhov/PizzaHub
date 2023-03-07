@@ -8,7 +8,7 @@ import { PizzasModule } from './pizzas/pizzas.module';
 const routes: Routes = [
 
   { path: 'pizza', component: PizzasComponent  },
-  { path: 'order', component: OrdersComponent  },
+  { path: 'order', loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule) },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
 ];
 

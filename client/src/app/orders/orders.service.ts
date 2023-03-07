@@ -1,6 +1,6 @@
-import { OrderForRequest } from './../shared/types/order'
+import { OrderForRequest, OrderForResponse, OrderForDashboardResponse } from './../shared/types/order'
 import { PizzaTypeForResponse } from './../pizzas/pizza'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
@@ -19,6 +19,19 @@ export class OrdersService {
 
   createOrder(order: OrderForRequest) {
     return this.http.post('orders', order);
+  }
+
+  all(pageNumber? : number, query?: string): Observable<OrderForDashboardResponse> {
+    let params = new HttpParams();
+
+    if (pageNumber) {
+      params = params.set('page', pageNumber.toString());
+    }
+
+    if (query) {
+      params = params.set('quey', query);
+    }
+    return this.http.get<OrderForDashboardResponse>('orders');
   }
 
   allForSelect(): Observable<PizzaTypeSelect[]> {

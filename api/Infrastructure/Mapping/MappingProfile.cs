@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using api.Features.Orders.Models;
+using AutoMapper;
 using System.Reflection;
 
 namespace api.Infrastructure.Mapping
@@ -28,6 +29,8 @@ namespace api.Infrastructure.Mapping
 
                 methodInfo?.Invoke(instance, new object[] { this });
             }
+
+            CreateMap<OrderListingResponseModel, OrderListingResponseModel>();
         }
     }
 }

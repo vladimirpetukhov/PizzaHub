@@ -1,8 +1,10 @@
+import { OrdersDashboardComponent } from './orders-dashboard/orders-dashboard.component'
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrdersComponent } from './orders.component';
 import { OrdersService } from './orders.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OrdersRoutes } from './orders.routing';
 
 export interface OrderStatus {
   displayName: string;
@@ -19,9 +21,11 @@ export const ORDER_STATUSES: OrderStatus[] = [
 @NgModule({
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    OrdersRoutes
   ],
-  declarations: [OrdersComponent],
+  declarations: [OrdersComponent, OrdersDashboardComponent],
   providers: [
     OrdersService, {
       provide: APP_INITIALIZER,

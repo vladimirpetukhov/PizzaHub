@@ -2,6 +2,10 @@
 using api.Data.Models;
 using api.Data.Models.Enums;
 using api.Features.Orders.Models;
+using api.Features.Orders.Specifications;
+using api.Features.Pizzas.Models;
+using api.Features.Pizzas.Specifications;
+using api.Infrastructure.Common;
 using api.Infrastructure.Services.Common;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -63,5 +67,53 @@ namespace api.Features.Orders
             return await Data.SaveChangesAsync();
 
         }
+
+        public async Task<OrderSearchResponseModel> SearchAsync(OrderSearchRequestModel request)
+        {
+            var specification = this.GetOrderSpecification(request);
+            request.Page = request.Page <= 0 ? 1 : request.Page;
+            var orders = await this.Mapper
+                .ProjectTo<OrderListingResponseModel>(this
+                    .AllAsNoTracking()
+                    .Where(specification)
+                    .OrderByDescending(x => x.CreatedOn)
+                    .Skip((request.Page - 1) * OrdersPerPage)
+                    .Take(OrdersPerPage)
+                    .Select(x => new OrderListingResponseModel
+                    {
+                        OrderCode = x.OrderCode.ToString(),
+                        Quantity = x.Quantity,
+                        Status = x.Status.ToString(),
+                        Customer = x.Customer,
+                        Pizza = x.Pizzas.Any() ? x.Pizzas.First(o => o.OrderId == x.Id).Pizza.PizzaType: null //Little Tricky
+                    }))
+                .ToListAsync();
+
+            var totalPages = await this.GetTotalPages(request);
+
+            return new OrderSearchResponseModel(orders, request.Page, totalPages);
+        }
+
+        public Task<int> UpdateAsync(OrderRequestModel request)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<int> GetTotalPages(
+            OrderSearchRequestModel request)
+        {
+            var specification = this.GetOrderSpecification(request);
+
+            var total = await this
+                .AllAsNoTracking()
+                .Where(specification)
+                .CountAsync();
+
+            return (int)Math.Ceiling((double)total / OrdersPerPage);
+        }
+
+        private Specification<Order> GetOrderSpecification(
+            OrderSearchRequestModel request)
+            => new OrderByCodeSearchSpecification(request.Query);
     }
 }
