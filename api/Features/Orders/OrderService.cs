@@ -35,11 +35,11 @@ namespace api.Features.Orders
                 await Data.SaveChangesAsync();
             }
 
-            var pizzaType = await Data.PizzaTypes.FindAsync(request.PizzaTypeId);
+            var pizzaType = await Data.PizzaTypes.FindAsync(request.PizzaType);
 
             if (pizzaType == null)
             {
-                throw new ArgumentException($"Pizza type with ID {request.PizzaTypeId} does not exist.");
+                throw new ArgumentException($"Pizza type with ID {request.PizzaType} does not exist.");
             }
 
             // create new order

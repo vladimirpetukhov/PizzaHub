@@ -284,6 +284,10 @@ svg#clouds {
   }
 }
 
+.is-invalid {
+  border-color: #dc3545;
+}
+
 @media screen and (max-width: 575px) {
   svg#rocket-smoke {
     display: none;

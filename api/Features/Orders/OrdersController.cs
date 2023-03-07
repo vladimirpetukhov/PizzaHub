@@ -16,7 +16,7 @@ namespace api.Features.Orders
         [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<int>> Create(
-            OrderRequestModel request)
+           [FromBody] OrderRequestModel request)
         {
             var result = await this.orders.CreateAsync(request);
 

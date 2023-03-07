@@ -1,7 +1,44 @@
-<p>
-  orders works!
-</p>
-<select>
-  <option *ngFor="let pizzaType of pizzaTypes$ | async" [value]="pizzaType.id">{{ pizzaType.name }}</option>
-</select>
-{{ pizzaTypes$ | async | json }}
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit()" >
+  <div class="row">
+    <div class="col-md-6">
+      <h5>Customer Info</h5>
+      <hr>
+      <div class="form-group mb-4" >
+        <label for="customerName">Customer Name:</label>
+        <input type="text" class="form-control" id="customerName" [ngClass]="{'is-invalid': orderForm.get('name')?.invalid && orderForm.get('name')?.touched}" formControlName="name">
+      </div>
+      <div class="form-group mb-4">
+        <label for="customerAddress">Customer Address:</label>
+        <input type="text" class="form-control" id="customerAddress" [ngClass]="{'is-invalid': orderForm.get('address')?.invalid && orderForm.get('address')?.touched}" formControlName="address">
+      </div>
+      <div class="form-group">
+        <label for="customerPhone">Customer Phone:</label>
+        <input type="text" class="form-control" id="customerPhone" [ngClass]="{'is-invalid': orderForm.get('phone')?.invalid && orderForm.get('phone')?.touched}" formControlName="phone">
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <h5>Pizza Info</h5>
+      <hr>
+      <div class="form-group mb-4">
+        <label for="quantity">Quantity:</label>
+        <input type="number" class="form-control" id="customerQuantity" [ngClass]="{'is-invalid': orderForm.get('quantity')?.invalid && orderForm.get('quantity')?.touched}" formControlName="quantity">
+      </div>
+      <div class="form-group mb-4">
+        <label for="pizzaType">Pizza Type:</label>
+        <select class="form-control" id="pizzaType" [ngClass]="{'is-invalid': orderForm.get('pizzaType')?.invalid && orderForm.get('pizzaType')?.touched}"   formControlName="pizzaType">
+          <option *ngFor="let pizzaType of pizzaTypes$ | async" [value]="pizzaType.id">{{ pizzaType.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="status">Status:</label>
+        <select formControlName="status" [ngClass]="{'is-invalid': orderForm.get('status')?.invalid && orderForm.get('status')?.touched}"  class="form-control">
+          <option *ngFor="let status of orderStatuses" [value]="status.value">{{ status.displayName }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+
+  <button type="submit" class="btn btn-primary mt-4" style="float: right;">Submit</button>
+</form>

@@ -19,6 +19,6 @@ namespace api.Features.Orders.Models
         public Customer Customer { get; set; }
 
         [Required]
-        public int PizzaTypeId{ get; set; }
+        public int PizzaType{ get; set; }
     }
 }

@@ -23,3 +23,7 @@ export type PizzaTypeSelect = {
   name: string;
 };
 
+export type PizzaTypeForResponse = {
+  pizzas: PizzaTypeSelect[];
+
+}

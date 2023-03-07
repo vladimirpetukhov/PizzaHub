@@ -18,8 +18,7 @@ export class PizzasService {
     if (query) {
       params = params.set('quey', query);
     }
-    console.log(params)
-    console.log(pageNumber);
+
     return this.http.get<PizzasResponse>('pizzas', { params });
   }
 
