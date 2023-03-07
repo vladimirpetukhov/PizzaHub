@@ -18,3 +18,12 @@ export type PizzaForRequest = {
   description: string;
 };
 
+export type PizzaTypeSelect = {
+  id: number;
+  name: string;
+};
+
+export type PizzaTypeForResponse = {
+  pizzas: PizzaTypeSelect[];
+
+}

@@ -12,6 +12,8 @@ namespace api.Features.Pizzas
 
         Task<PizzasTypeSearchResponseModel> SearchAsync(PizzasTypeSearchRequestModel request);
 
+        Task<PizzasForSelectResponseModel> Select();
+
         Task<Result> DeleteAsync(int id);
     }
 }

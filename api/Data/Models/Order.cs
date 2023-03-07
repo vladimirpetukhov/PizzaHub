@@ -8,7 +8,7 @@ namespace api.Data.Models
     {
         public int Id { get; set; }
 
-        public Guid OrderCode { get; set; }
+        public Guid OrderCode { get; set; } = Guid.NewGuid();
 
         public int Quantity { get; set; }
 

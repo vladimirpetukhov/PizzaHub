@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Pizza, PizzasResponse, PizzaForRequest } from './pizza';
-import { Observable } from 'rxjs';
+import { Pizza, PizzasResponse, PizzaForRequest, PizzaTypeSelect } from './pizza';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class PizzasService {
@@ -18,10 +18,11 @@ export class PizzasService {
     if (query) {
       params = params.set('quey', query);
     }
-    console.log(params)
-    console.log(pageNumber);
+
     return this.http.get<PizzasResponse>('pizzas', { params });
   }
+
+
 
   create(pizza: PizzaForRequest) {
     return this.http.post('pizzas', pizza);

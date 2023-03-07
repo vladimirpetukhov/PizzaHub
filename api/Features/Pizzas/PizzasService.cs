@@ -86,6 +86,17 @@ namespace api.Features.Pizzas
             return new PizzasTypeSearchResponseModel(pizzas, request.Page, totalPages);
         }
 
+        public async Task<PizzasForSelectResponseModel> Select()
+        {
+            var pizzas = await this.Mapper
+                .ProjectTo<PizzassTypesSelectModel>(this
+                    .AllAsNoTracking())
+                .ToListAsync();
+
+            return new PizzasForSelectResponseModel(pizzas);
+        }
+         
+
         private async Task<int> GetTotalPages(
             PizzasTypeSearchRequestModel request)
         {
